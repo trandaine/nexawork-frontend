@@ -122,58 +122,58 @@ const data = {
   //     ],
   //   },
   // ],
-  navSecondary: [
-    {
-      title: "Settings",
-      url: "#",
-      icon: (
-        <GearIcon
-        />
-      ),
-    },
-    {
-      title: "Get Help",
-      url: "#",
-      icon: (
-        <QuestionIcon
-        />
-      ),
-    },
-    {
-      title: "Search",
-      url: "#",
-      icon: (
-        <MagnifyingGlassIcon
-        />
-      ),
-    },
-  ],
-  documents: [
-    {
-      name: "Data Library",
-      url: "#",
-      icon: (
-        <DatabaseIcon
-        />
-      ),
-    },
-    {
-      name: "Reports",
-      url: "#",
-      icon: (
-        <ChartLineIcon
-        />
-      ),
-    },
-    {
-      name: "Word Assistant",
-      url: "#",
-      icon: (
-        <FileIcon
-        />
-      ),
-    },
-  ],
+  // navSecondary: [
+  //   {
+  //     title: "Settings",
+  //     url: "#",
+  //     icon: (
+  //       <GearIcon
+  //       />
+  //     ),
+  //   },
+  //   {
+  //     title: "Get Help",
+  //     url: "#",
+  //     icon: (
+  //       <QuestionIcon
+  //       />
+  //     ),
+  //   },
+  //   {
+  //     title: "Search",
+  //     url: "#",
+  //     icon: (
+  //       <MagnifyingGlassIcon
+  //       />
+  //     ),
+  //   },
+  // ],
+  // documents: [
+  //   {
+  //     name: "Data Library",
+  //     url: "#",
+  //     icon: (
+  //       <DatabaseIcon
+  //       />
+  //     ),
+  //   },
+  //   {
+  //     name: "Reports",
+  //     url: "#",
+  //     icon: (
+  //       <ChartLineIcon
+  //       />
+  //     ),
+  //   },
+  //   {
+  //     name: "Word Assistant",
+  //     url: "#",
+  //     icon: (
+  //       <FileIcon
+  //       />
+  //     ),
+  //   },
+  // ],
 }
 
 export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
@@ -196,8 +196,8 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
       </SidebarHeader>
       <SidebarContent>
         <NavMain items={data.navMain} />
-        <NavDocuments items={data.documents} />
-        <NavSecondary items={data.navSecondary} className="mt-auto" />
+        {/* <NavDocuments items={data.documents} /> */}
+        {/* <NavSecondary items={data.navSecondary} className="mt-auto" /> */}
       </SidebarContent>
       <SidebarFooter>
         <NavUser user={data.user} />
