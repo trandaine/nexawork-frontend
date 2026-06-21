@@ -21,15 +21,18 @@ import {
   useSidebar,
 } from "@/components/ui/sidebar"
 import { UserCircleIcon, CreditCardIcon, BellIcon, SignOutIcon } from "@phosphor-icons/react"
+import { signOut } from "next-auth/react"
 
 export function NavUser({
   user,
+  session
 }: {
   user: {
     name: string
     email: string
     avatar: string
-  }
+  },
+  session?: any
 }) {
   const { isMobile } = useSidebar()
 
@@ -112,7 +115,15 @@ export function NavUser({
               </DropdownMenuItem>
             </DropdownMenuGroup>
             <DropdownMenuSeparator />
-            <DropdownMenuItem>
+            <DropdownMenuItem onClick={async () => {
+              // 1. Redirect to OpenIddict to clear IDP session first
+              // 2. OpenIddict will redirect back to our app where we can clear NextAuth session
+              // Or we can clear NextAuth session locally first, then bounce to OpenIddict
+              await signOut({ redirect: false });
+              const idToken = session?.idToken;
+              const openiddictLogoutUrl = `https://localhost:7036/connect/logout?post_logout_redirect_uri=${encodeURIComponent('http://localhost:3000/callback/logout')}${idToken ? `&id_token_hint=${idToken}` : ''}`;
+              window.location.href = openiddictLogoutUrl;
+            }}>
               <SignOutIcon
               />
               Log out

@@ -1,8 +1,11 @@
 import { AppSidebar } from "@/components/layout/app-sidebar"
 import { SiteHeader } from "@/components/layout/site-header"
 import { SidebarInset, SidebarProvider } from "@/components/ui/sidebar"
+import { auth } from "@/auth"
 
-export default function NavLayout({ children }: { children: React.ReactNode }) {
+export default async function NavLayout({ children }: { children: React.ReactNode }) {
+  const session = await auth()
+  
   return (
     <SidebarProvider
       style={
@@ -12,7 +15,7 @@ export default function NavLayout({ children }: { children: React.ReactNode }) {
         } as React.CSSProperties
       }
     >
-      <AppSidebar variant="inset" />
+      <AppSidebar variant="inset" session={session} />
       <SidebarInset>
         <SiteHeader />
         {children}

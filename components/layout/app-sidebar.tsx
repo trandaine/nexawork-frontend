@@ -176,7 +176,9 @@ const data = {
   // ],
 }
 
-export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
+export function AppSidebar({ session, ...props }: React.ComponentProps<typeof Sidebar> & { session?: any }) {
+  const activeUser = session?.user || data.user;
+  
   return (
     <Sidebar collapsible="offcanvas" {...props}>
       <SidebarHeader>
@@ -200,7 +202,7 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
         {/* <NavSecondary items={data.navSecondary} className="mt-auto" /> */}
       </SidebarContent>
       <SidebarFooter>
-        <NavUser user={data.user} />
+        <NavUser user={activeUser} session={session} />
       </SidebarFooter>
     </Sidebar>
   )
