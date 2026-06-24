@@ -42,7 +42,7 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
     },
   },
   // We can use a custom login page if we had one, but we'll use the default or auto-redirect
-  // pages: {
-  //   signIn: '/login',
-  // },
+  pages: {
+    signIn: '/login',
+  },
 })

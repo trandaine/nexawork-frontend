@@ -9,11 +9,10 @@ export default auth((req) => {
   const isProtectedRoute = pathname.startsWith('/dashboard') || pathname.startsWith('/home');
 
   if (isProtectedRoute && !isLoggedIn) {
-    // Redirect directly to the OpenIddict provider to skip the NextAuth default login screen
-    // const signInUrl = new URL('/api/auth/signin/openiddict', req.url);
-    const signInUrl = new URL('/api/auth/signin', req.url);
-    signInUrl.searchParams.set('callbackUrl', req.url);
-    return NextResponse.redirect(signInUrl);
+    // Redirect unauthenticated users to our custom login page
+    const loginUrl = new URL('/login', req.url);
+    loginUrl.searchParams.set('callbackUrl', req.url);
+    return NextResponse.redirect(loginUrl);
   }
 
   return NextResponse.next();
