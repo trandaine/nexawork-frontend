@@ -301,6 +301,11 @@ function SidebarRail({ className, ...props }: React.ComponentProps<"button">) {
   )
 }
 
+/**
+ * Component for the main content area that appears next to the sidebar.
+ * @param param0 
+ * @returns 
+ */
 function SidebarInset({ className, ...props }: React.ComponentProps<"main">) {
   return (
     <main

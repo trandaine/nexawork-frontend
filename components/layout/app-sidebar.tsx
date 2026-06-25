@@ -176,6 +176,11 @@ const data = {
   // ],
 }
 
+/**
+ * Application Sidebar component that renders the main navigation and user information.
+ * @param param0 
+ * @returns 
+ */
 export function AppSidebar({ session, ...props }: React.ComponentProps<typeof Sidebar> & { session?: any }) {
   const activeUser = session?.user || data.user;
   
