@@ -19,7 +19,11 @@
       }
     ],
     "paths": {
-      "@/*": ["./*"]
+      "@/*": ["./*"],
+      "@/lib/*": ["./src/shared/lib/*"],
+      "@/hooks/*": ["./src/shared/hooks/*"],
+      "@/components/ui/*": ["./src/shared/ui/*"],
+      "@/auth": ["./src/shared/config/auth.ts"]
     }
   },
   "include": [
