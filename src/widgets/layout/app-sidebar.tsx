@@ -16,6 +16,7 @@ import {
   SidebarMenuItem,
 } from "@/src/shared/ui/sidebar"
 import { HouseIcon, SquaresFourIcon, ListIcon, ChartBarIcon, FolderIcon, UsersIcon, CameraIcon, FileTextIcon, GearIcon, QuestionIcon, MagnifyingGlassIcon, DatabaseIcon, ChartLineIcon, FileIcon, CommandIcon } from "@phosphor-icons/react"
+import { useCustomer } from "@/src/entities/customer/api/useCustomer"
 
 const data = {
   user: {
@@ -182,7 +183,9 @@ const data = {
  * @returns 
  */
 export function AppSidebar({ session, ...props }: React.ComponentProps<typeof Sidebar> & { session?: any }) {
-  const activeUser = session?.user || data.user;
+  // const activeUser = session?.user || data.user;
+
+  const {data: activeUser, isLoading, isError} = useCustomer();
   
   return (
     <Sidebar collapsible="offcanvas" {...props}>

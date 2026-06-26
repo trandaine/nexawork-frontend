@@ -30,8 +30,41 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
         token.refreshToken = account.refresh_token
         token.idToken = account.id_token
         token.expiresAt = account.expires_at
+        return token
       }
-      return token
+
+      // Check if access token is still valid (accounting for a 60-second buffer)
+      if (Date.now() < (token.expiresAt as number) * 1000 - 60 * 1000) {
+        return token
+      }
+
+      // Access token has expired, try to update it
+      try {
+        const response = await fetch(`${process.env.AUTH_OPENIDDICT_ISSUER || "https://localhost:7036"}/connect/token`, {
+          headers: { "Content-Type": "application/x-www-form-urlencoded" },
+          body: new URLSearchParams({
+            client_id: process.env.AUTH_OPENIDDICT_ID!,
+            client_secret: process.env.AUTH_OPENIDDICT_SECRET!,
+            grant_type: "refresh_token",
+            refresh_token: token.refreshToken as string,
+          }),
+          method: "POST",
+        })
+
+        const tokens = await response.json()
+
+        if (!response.ok) throw tokens
+
+        return {
+          ...token,
+          accessToken: tokens.access_token,
+          refreshToken: tokens.refresh_token ?? token.refreshToken,
+          expiresAt: Math.floor(Date.now() / 1000 + tokens.expires_in),
+        }
+      } catch (error) {
+        console.error("Error refreshing access token", error)
+        return { ...token, error: "RefreshAccessTokenError" as const }
+      }
     },
     async session({ session, token }) {
       // Send properties to the client, like an access_token and user id from a provider.
