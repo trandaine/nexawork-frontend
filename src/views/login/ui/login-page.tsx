@@ -1,6 +1,6 @@
 "use client"
 
-import { LoginForm } from "@/src/features/auth/ui/login-form"
+import { LoginForm } from "@features/auth/ui/login-form"
 import { RowsIcon } from "@phosphor-icons/react"
 
 export function LoginPageView() {

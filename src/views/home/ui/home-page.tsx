@@ -1,4 +1,4 @@
-import { InstagramPost } from "@/src/features/home/ui/instagram-post"
+import { InstagramPost } from "@features/home/ui/instagram-post"
 
 export function HomePageView() {
   return (

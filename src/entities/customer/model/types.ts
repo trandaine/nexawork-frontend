@@ -1,11 +1,11 @@
 export interface Customer {
-    CustomerId: string;
-    FirstName: string;
-    LastName: string;
-    Headline: string;
-    Summary: string;
-    Location: string;
-    ProfilePictureUrl: string;
-    BackgroundPictureUrl: string;
-    PhoneNumber: string;
+    customerId: string;
+    firstName: string;
+    lastName: string;
+    headline: string | null;
+    summary: string | null;
+    location: string | null;
+    profilePictureUrl: string | null;
+    backgroundPictureUrl: string | null;
+    phoneNumber: string | null;
 }

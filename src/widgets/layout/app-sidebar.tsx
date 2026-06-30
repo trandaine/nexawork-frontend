@@ -185,8 +185,16 @@ const data = {
 export function AppSidebar({ session, ...props }: React.ComponentProps<typeof Sidebar> & { session?: any }) {
   // const activeUser = session?.user || data.user;
 
-  const {data: activeUser, isLoading, isError} = useCustomer();
-  
+  const { data: activeUser, isLoading, isError, error } = useCustomer();
+
+
+  // console.log('TanStack Query State:', {
+  //   isLoading,
+  //   isError,
+  //   activeUser,
+  //   errorMessage: error?.name
+  // });
+
   return (
     <Sidebar collapsible="offcanvas" {...props}>
       <SidebarHeader>

@@ -21,33 +21,33 @@ import {
   SidebarMenuItem,
   useSidebar,
 } from "@/src/shared/ui/sidebar"
-import { UserCircleIcon, CreditCardIcon, BellIcon, SignOutIcon } from "@phosphor-icons/react"
+import { UserCircleIcon, CreditCardIcon, BellIcon, SignOutIcon, ChalkboardTeacherIcon } from "@phosphor-icons/react"
 import { signOut } from "next-auth/react"
+import {Session} from "next-auth"
 
-export function NavUser({
-  user,
-  session
-}: {
-  // user: {
-  //   name: string
-  //   email: string
-  //   avatar: string
-  // },
-  user: Customer | null | undefined,
-  session?: any
-}) {
+interface NavUserProps {
+  user: Customer |undefined,
+  // user: Customer | null | undefined,
+  session?: Session | null
+}
+
+
+export function NavUser({user, session}: NavUserProps) {
   const { isMobile } = useSidebar()
 
   const defaultBannerImage = "https://plus.unsplash.com/premium_photo-1733864827286-d43afe9a1ae7?q=80&w=2671&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D";
   const defaultAvatarImage = "https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?q=80&w=200&auto=format&fit=crop";
 
-  const fullName = user ? `${user.FirstName} ${user.LastName}`.trim() : session?.user?.name || "Loading...";
+  const fullName = user ? `${user.firstName} ${user.lastName}`.trim() || "Loading..." : "Loading...";
   const email = session?.user?.email;
-  const avatarImage = user?.ProfilePictureUrl || session?.user?.avatar || defaultAvatarImage;
-  const bannerImage = user?.BackgroundPictureUrl || defaultBannerImage;
-  const headline = user?.Headline;
-  const location = user?.Location;
+  // const avatarImage = user?.ProfilePictureUrl || session?.user?.avatar || defaultAvatarImage;
+  const avatarImage = user?.profilePictureUrl || defaultAvatarImage;
+  const bannerImage = user?.backgroundPictureUrl || defaultBannerImage;
+  const headline = user?.headline;
+  const location = user?.location;
   const initials = fullName.split(' ').map((n: string) => n[0]).join('');
+
+  // console.log('NavUser component rendered with user:', user, 'and session:', session);
 
   return (
     <SidebarMenu>
@@ -114,9 +114,9 @@ export function NavUser({
                 Account
               </DropdownMenuItem>
               <DropdownMenuItem>
-                <CreditCardIcon
+                <ChalkboardTeacherIcon
                 />
-                Billing
+                My Profile
               </DropdownMenuItem>
               <DropdownMenuItem>
                 <BellIcon
@@ -130,7 +130,8 @@ export function NavUser({
               // 2. OpenIddict will redirect back to our app where we can clear NextAuth session
               // Or we can clear NextAuth session locally first, then bounce to OpenIddict
               await signOut({ redirect: false });
-              const idToken = session?.idToken;
+              // const idToken = session?.idToken;
+              const idToken = session?.user?.email; // Assuming the ID token is stored in the session object
               const openiddictLogoutUrl = `https://localhost:7036/connect/logout?post_logout_redirect_uri=${encodeURIComponent('http://localhost:3000/callback/logout')}${idToken ? `&id_token_hint=${idToken}` : ''}`;
               window.location.href = openiddictLogoutUrl;
             }}>
