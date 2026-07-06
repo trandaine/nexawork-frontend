@@ -1,3 +1,5 @@
+"use client"
+
 import { cn } from "@/lib/utils"
 import { Button } from "@/src/shared/ui/button"
 import {
@@ -15,7 +17,7 @@ import {
   FieldSeparator,
 } from "@/src/shared/ui/field"
 import { Input } from "@/src/shared/ui/input"
-import { loginWithSSO } from "@/src/features/auth/actions/auth-actions"
+import { signIn } from "next-auth/react"
 
 export function LoginForm({
   className,
@@ -31,7 +33,7 @@ export function LoginForm({
           </CardDescription>
         </CardHeader>
         <CardContent>
-          <form action={loginWithSSO}>
+          <form action={async () => { await signIn("openiddict", { redirectTo: "/dashboard" }) }}>
             <FieldGroup>
               <Field>
                 <Button variant="outline" type="button">

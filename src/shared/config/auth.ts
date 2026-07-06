@@ -9,9 +9,9 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
       issuer: process.env.AUTH_OPENIDDICT_ISSUER || "https://localhost:7036",
       clientId: process.env.AUTH_OPENIDDICT_ID,
       clientSecret: process.env.AUTH_OPENIDDICT_SECRET,
-      // client: {
-      //   token_endpoint_auth_method: "client_secret_post",
-      // },
+      client: {
+        token_endpoint_auth_method: "client_secret_post",
+      },
       authorization: {
         params: {
           scope: "openid profile api offline_access",
